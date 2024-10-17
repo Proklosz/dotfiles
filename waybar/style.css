@@ -41,7 +41,7 @@
 /* Reset all styles */
 * {
   border: none;
-  border-radius: 5;
+  border-radius: 7;
   min-height: 0;
   margin: 1;
   padding: 0;
@@ -52,10 +52,10 @@
 
 /* The whole bar */
 window#waybar {
-  background: #101010;
+  background: rgba(0.0, 0.0, 0.0, 0.0);
   color: @wm_icon_bg;
   font-size: 14px;
-  border: 2px solid #d7d7d7;
+  /*border: 2px solid #d7d7d7;*/
   border-radius: 7;
   margin: 5;
 }
@@ -87,15 +87,47 @@ window#waybar {
 #custom-playerctl,
 #custom-weather,
 #custom-terminal,
-#tray {
+#custom-gpu_usage,
+#custom-gpu_temp {
   padding-left: 0px;
   padding-right: 10px;
+  border: 2px solid #d7d7d7;
+  background-color: #101010;
 }
+
+#tray {
+  padding-left: 5px;
+  padding-right: 5px;
+  border: 2px solid #d7d7d7;
+  background-color: #101010;
+}
+
+#tray:hover {
+    background-color: #505050;
+}
+
+#custom-terminal:hover,
+#custom-gpu_usage:hover,
+#custom-gpu_temp:hover,
+#cpu:hover,
+#temperature:hover,
+#network:hover,
+#bluetooth:hover,
+#custom-playerctl:hover,
+#pulseaudio:hover{
+    background-color: #505050;
+}
+#network,
+#custom-playerctl{
+    padding-right:14px;
+}
+
 
 #clock,
 #backlight {
   padding-right: 10px;
   margin-left: 10px;
+  border: 2px solid #d7d7d7;
 }
 #clock {
   padding-left: 10px;
@@ -155,7 +187,7 @@ window#waybar {
 
 #custom-menu {
   padding-left: 8px;
-  padding-right: 6px;
+  padding-right: 4px;
   color: #000000;
 }
 
@@ -197,7 +229,15 @@ window#waybar {
   padding-left: 8px;
   padding-right: 8px;
   color: #d7d7d7;
+  border-radius: 3px;
 }
+
+#workspaces button:hover{
+  background-color: #505050;
+  color: #000000;
+}
+
+
 
 #workspaces button.active {
   border-color: #d7d7d7;
@@ -225,4 +265,40 @@ window#waybar {
 
 #custom-valent.dangerously-empty {
   color: @warning_color;
+}
+
+#workspaces {
+    border: 2px solid #d7d7d7;
+    background-color: #101010;
+    border-radius: 7px;
+}
+#cpu {
+  border: 2px solid #d7d7d7;
+    border-right: none;
+  margin-right: 0px;
+
+}
+#temperature {
+     border-left: none;
+  margin-left: 0px;
+
+}
+#custom-gpu_usage {
+  border: 2px solid #d7d7d7;
+  border-right: none;
+  margin-right: 0px;
+
+}
+#custom-gpu_temp {
+  border: 2px solid #d7d7d7;
+  border-left: none;
+  margin-left: 0px;
+}
+#custom-separator_2 {
+    font-weight:300;
+    border-radius:0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 1px;
+
 }

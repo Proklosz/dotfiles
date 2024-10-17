@@ -15,18 +15,21 @@
     // If height property would be not present, it'd be calculated dynamically
     "height": 35,
     "position": "top",
-    "margin": 5,
-
-    "modules-left": ["custom/menu", "hyprland/workspaces", "custom/scratchpad"],
+    "margin": 2,
+    "modules-left": ["custom/menu","custom/separator","hyprland/workspaces", "custom/scratchpad"],
     "modules-right": [
         // informational
         "custom/separator",
         "custom/terminal",
         "custom/separator",
         "custom/gpu_usage",
+        
+        "custom/separator_2",
+
         "custom/gpu_temp",
         "custom/separator",
         "cpu",
+        "custom/separator_2",
         "temperature",
         "custom/separator",
 
@@ -46,14 +49,21 @@
         "clock"
     ],
 
+
+
     // -------------------------------------------------------------------------
     // Modules
     // -------------------------------------------------------------------------
 
     "custom/separator": {
-        "format": " | ",
+        "format": " ",
         "tooltip": false
     },
+    "custom/separator_2": {
+        "format": "╳",
+        "tooltip": false
+    },
+
 
     "battery": {
         "interval": 30,
@@ -77,7 +87,7 @@
 
     "custom/terminal": {
         "interval": 10,
-        "format":">_",
+        "format":" >_",
         "on-click": "foot -H",
         "tooltip": true,
         "tooltip-format": ">_"
@@ -85,7 +95,7 @@
     
     "cpu": {
         "interval": 10,
-        "format":"󰘚 CPU {usage}%  ",
+        "format":" 󰘚 CPU {usage}% ",
         "states": {
             "warning": 70,
             "critical": 90
@@ -98,7 +108,7 @@
         "interval": 10,
         "exec": "/home/proklosz/.config/waybar/scripts/gpu_usage.sh",
         "return-type": "",
-        "format": "󱉽 GPU {}%   ",
+        "format": " 󱉽 GPU {}% ",
         "states": {
             "warning": 70,
             "critical": 90
@@ -112,8 +122,8 @@
         "interval": 5,
         "exec": "/home/proklosz/.config/waybar/scripts/gpu_temp.sh",
         "return-type": "",  // Ensure this is set to "json"
-        "format": "{}°C", 
-        "tooltip-format": "{}°C", 
+        "format": " {}°C", 
+        "tooltip-format": " {}°C", 
         "format-icons": ["", "", ""],
         "tooltip": true,
         "on-click": "foot -T float_htop -H watch -n 1 sensors"
@@ -131,9 +141,9 @@
 
     "network": {
         "interval": 5,
-        "format-wifi": " ",
-        "format-ethernet": " 󰈀 ",
-        "format-disconnected": " 󰖪 ",
+        "format-wifi": " ",
+        "format-ethernet": " 󰈀",
+        "format-disconnected": " 󰖪",
         "tooltip-format":"{icon} {ifname}: {ipaddr}",
         "tooltip-format-ethernet": "{icon} {ifname}: {ipaddr}",
         "tooltip-format-wifi": "{icon} {ifname} ({essid}): {ipaddr}",
@@ -156,8 +166,8 @@
 
     "pulseaudio": {
         "scroll-step": 5,
-        "format":"{icon} {volume}%",
-        "format-muted": "󰖁 {format_source}",
+        "format":" {icon} {volume}% ",
+        "format-muted": " 󰖁 {format_source} ",
         "format-source": "",
         "format-source-muted": " 󰍭",
         "format-icons": {
@@ -176,8 +186,8 @@
         "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
         "critical-threshold": 90,
         "interval": 5,
-        "format":"{temperatureC}°C",
-        "tooltip-format":"{temperatureC}°C",
+        "format":" {temperatureC}°C",
+        "tooltip-format":" {temperatureC}°C",
         "format-icons": ["", "", ""],
         "tooltip": true,
         "on-click": "foot -T float_htop -H watch -n 1 sensors"
@@ -195,8 +205,8 @@
     },
 
     "bluetooth": {
-        "format":"󰂯",
-        "format-disabled": "󰂲",
+        "format":" 󰂯",
+        "format-disabled": " 󰂲" ,
         "on-click": "foot -T float_htop bluetuith",
         "on-click-right": "rfkill toggle bluetuith",
         "tooltip-format":"{}"
@@ -241,8 +251,8 @@
         "return-type": "json",
         "format":"{icon}",
         "format-icons": {
-            "Playing": "󰏦",
-            "Paused": "󰐍"
+            "Playing": " 󰏦",
+            "Paused": " 󰐍"
         },
         "exec": "playerctl metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}}:  {{markup_escape(title)}} - {{markup_escape(artist)}}\" }'",
         "on-click": "playerctl play-pause",
