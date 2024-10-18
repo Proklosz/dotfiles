@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Read the temperature in millidegrees Celsius and convert it to degrees Celsius
+temp_milli=$(cat /sys/class/hwmon/hwmon3/temp1_input)
+temp_celsius=$((temp_milli / 1000))
+
+# Print the temperature in degrees Celsius
+echo "$temp_celsius"
+

@@ -299,6 +299,15 @@ window#waybar {
     border-radius:0px;
     margin-left: 0px;
     margin-right: 0px;
+    margin-top: 6px;
+    margin-bottom: 6px;
     padding-top: 1px;
+    background: linear-gradient(63deg, transparent 45%, #d7d7d7 48%, #d7d7d7 52%, transparent 55%),
+                linear-gradient(117deg, transparent 45%, #d7d7d7 48%, #d7d7d7 52%, transparent 55%),
+                radial-gradient(circle at 0px center, #101010 30%, transparent 40%),
+                radial-gradient(circle at 10px center, #101010 30%, transparent 40%);
+
 
 }
+
+

@@ -60,7 +60,7 @@
         "tooltip": false
     },
     "custom/separator_2": {
-        "format": "╳",
+        "format": " ",
         "tooltip": false
     },
 
@@ -166,8 +166,8 @@
 
     "pulseaudio": {
         "scroll-step": 5,
-        "format":" {icon} {volume}% ",
-        "format-muted": " 󰖁 {format_source} ",
+        "format":" {icon} {volume}%",
+        "format-muted": " 󰖁{format_source}",
         "format-source": "",
         "format-source-muted": " 󰍭",
         "format-icons": {
