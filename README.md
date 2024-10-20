@@ -12,13 +12,13 @@ Put wallpaper and locked wallpaper image in /usr/share/nwg-hello/
 and modify the path in :
 
 >
->    .config/hypr/hyprpaper.conf 
->    .config/hypr/hyprlock.conf 
->    /etc/nwg-hello/nwg-hello.css
+>    .config/hypr/hyprpaper.conf<br>
+>    .config/hypr/hyprlock.conf <br>
+>    /etc/nwg-hello/nwg-hello.css<br>
+><br>
 >
->
->    (or just name them the same :
->        Arch_bg-5.png
->        Arch_bg-5_lock.png
+>    (or just name them the same :<br>
+>        Arch_bg-5.png<br>
+>        Arch_bg-5_lock.png<br>
 >    )
 >
