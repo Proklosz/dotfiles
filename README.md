@@ -1,6 +1,9 @@
 ### Hyprland dotfiles
 
-Install with the install_parts_arch.share
+Install with 
+```bash
+install_parts_arch.sh
+```
     (this will copy over all the config files for this setup
     if u need only parts of it u'll have to copy them manually)
 
