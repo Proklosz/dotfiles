@@ -1,0 +1,339 @@
+// =============================================================================
+//
+// Waybar configuration
+//
+// Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+//
+// =============================================================================
+
+{
+    // -------------------------------------------------------------------------
+    // Global configuration
+    // -------------------------------------------------------------------------
+    "layer": "top",
+
+    // If height property would be not present, it'd be calculated dynamically
+    "height": 35,
+    "position": "top",
+    "margin": 2,
+    "modules-left": ["custom/menu","custom/separator","hyprland/workspaces", "custom/scratchpad"],
+    "modules-right": [
+        // informational
+        "custom/separator",
+        "custom/terminal",
+        "custom/separator",
+        "custom/gpu_usage",
+        
+        "custom/separator_2",
+
+        "custom/gpu_temp",
+        "custom/separator",
+        "cpu",
+        "custom/separator_2",
+        "temperature",
+        "custom/separator",
+
+        // connecting
+        "network",
+        "bluetooth",
+        "custom/separator",
+
+        // media
+        "custom/playerctl",
+        "custom/idle_inhibitor",
+        "custom/dnd",
+        "pulseaudio",
+
+        // system
+        "tray",
+        "clock"
+    ],
+
+
+
+    // -------------------------------------------------------------------------
+    // Modules
+    // -------------------------------------------------------------------------
+
+    "custom/separator": {
+        "format": " ",
+        "tooltip": false
+    },
+    "custom/separator_2": {
+        "format": " ",
+        "tooltip": false
+    },
+
+
+    "battery": {
+        "interval": 30,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format-charging": "󰂄 {capacity}%",
+        "format":"{icon}",
+        "format-icons": ["󱃍", "󰁺", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "tooltip": true
+    },
+
+    "clock": {
+        "interval": 60,
+        "format":"{:%e %b %Y | %H:%M}",
+        "tooltip": true,
+        "tooltip-format":"<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
+        "on-click": "foot --title=float_htop calcurse"
+    },
+
+    "custom/terminal": {
+        "interval": 10,
+        "format":" >_",
+        "on-click": "foot -H",
+        "tooltip": true,
+        "tooltip-format": ">_"
+    },
+    
+    "cpu": {
+        "interval": 10,
+        "format":" 󰘚 CPU {usage}% ",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "foot -T float_htop btop",
+        "tooltip": true
+    },
+
+    "custom/gpu_usage": {
+        "interval": 10,
+        "exec": "/home/proklosz/.config/waybar/scripts/gpu_usage.sh",
+        "return-type": "",
+        "format": " 󱉽 GPU {}% ",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "foot -T float_htop radeontop -T",
+        "tooltip": true
+    },
+
+    "custom/gpu_temp": {
+        "critical-threshold": 90,
+        "interval": 5,
+        "exec": "/home/proklosz/.config/waybar/scripts/gpu_temp.sh",
+        "return-type": "",  // Ensure this is set to "json"
+        "format": " {}°C", 
+        "tooltip-format": " {}°C", 
+        "format-icons": ["", "", ""],
+        "tooltip": true,
+        "on-click": "foot -T float_htop -H watch -n 1 sensors"
+    },
+    "memory": {
+        "interval": 10,
+        "format":"󰍛",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "on-click": "foot -T float_htop htop",
+        "tooltip": true
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": " ",
+        "format-ethernet": " 󰈀",
+        "format-disconnected": " 󰖪",
+        "tooltip-format":"{icon} {ifname}: {ipaddr}",
+        "tooltip-format-ethernet": "{icon} {ifname}: {ipaddr}",
+        "tooltip-format-wifi": "{icon} {ifname} ({essid}): {ipaddr}",
+        "tooltip-format-disconnected": "{icon} disconnected",
+        "tooltip-format-disabled": "{icon} disabled",
+        "on-click": "foot -T float_htop -H nmtui connect"
+    },
+
+    "hyprland/mode": {
+        "format":"<span style=\"italic\">{}</span>",
+        "tooltip": false
+    },
+
+    "backlight": {
+        "format":"{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl set +10% && ~/.config/waybar/scripts/brightness_notify.sh",
+        "on-scroll-down": "brightnessctl set 10%- && ~/.config/waybar/scripts/brightness_notify.sh"
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format":" {icon} {volume}%",
+        "format-muted": " 󰖁{format_source}",
+        "format-source": "",
+        "format-source-muted": " 󰍭",
+        "format-icons": {
+            "headphone": "󰋋",
+            "headset": "󰋎",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "tooltip-format":"{icon}  {volume}% {format_source}",
+        "on-click": "foot -T float_htop pulsemixer",
+        "on-click-middle": "pamixer -t",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5% && ~/.config/waybar/scripts/volume_notify.sh",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5% && ~/.config/waybar/scripts/volume_notify.sh"   
+    },
+
+    "temperature": {
+        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+        "critical-threshold": 90,
+        "interval": 5,
+        "format":" {temperatureC}°C",
+        "tooltip-format":" {temperatureC}°C",
+        "format-icons": ["", "", ""],
+        "tooltip": true,
+        "on-click": "foot -T float_htop -H watch -n 1 sensors"
+    },
+
+    "tray": {
+        "icon-size": 21,
+        "spacing": 5
+    },
+
+    "custom/menu": {
+        "format":" ",
+        "on-click": "/home/proklosz/personal/toggle_wofi.sh",
+        "tooltip": false
+    },
+
+    "bluetooth": {
+        "format":" 󰂯",
+        "format-disabled": " 󰂲" ,
+        "on-click": "foot -T float_htop bluetuith",
+        "on-click-right": "rfkill toggle bluetuith",
+        "tooltip-format":"{}"
+    },
+
+    "hyprland/language": {
+        "format":" {}",
+        "min-length": 5,
+        "tooltip": false,
+        "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+    },
+
+    "custom/scratchpad": {
+        "interval": "once",
+        "return-type": "json",
+        "format":"{icon}",
+        "format-icons": {
+            "one": "󰖯",
+            "many": "󰖲"
+        },
+        "exec": "/bin/sh /usr/share/sway/scripts/scratchpad.sh",
+        "on-click": "swaymsg 'scratchpad show'",
+        "signal": 7
+    },
+
+    
+    "custom/wf-recorder": {
+        "interval": "once",
+        "return-type": "json",
+        "format":"{}",
+        "tooltip-format":"{tooltip}",
+        "exec": "echo '{\"class\": \"recording\",\"text\":\"󰑊\",\"tooltip\":\"press $mod+Esc to stop recording\"}'",
+        "exec-if": "pgrep wf-recorder",
+        "on-click": "waybar-signal recorder",
+        "signal": 8
+    },
+
+    
+    "custom/playerctl": {
+        "interval": "once",
+        "tooltip": true,
+        "return-type": "json",
+        "format":"{icon}",
+        "format-icons": {
+            "Playing": " 󰏦",
+            "Paused": " 󰐍"
+        },
+        "exec": "playerctl metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{playerName}}:  {{markup_escape(title)}} - {{markup_escape(artist)}}\" }'",
+        "on-click": "playerctl play-pause",
+        "on-click-right": "playerctl next",
+        "on-scroll-up": "playerctl position 10+",
+        "on-scroll-down": "playerctl position 10-",
+        "signal": 5
+    },
+
+   "custom/clipboard": {
+    "format":"󰨸",
+    "interval": "once",
+    "return-type": "json",
+    "on-click": "hyprctl dispatch exec \"$clipboard\"; waybar-signal clipboard",
+    "on-click-right": "hyprctl dispatch exec \"$clipboard-del\"; waybar-signal clipboard",
+    "on-click-middle": "rm -f ~/.cache/cliphist/db; waybar-signal clipboard",
+    "exec": "printf '{\"tooltip\":\"%s\"}' $(cliphist list| wc -l)' item(s) in the clipboard\r(Mid click to clear)'",
+    "exec-if": "[ -x \"$(command -v cliphist)\" ] && [ $(cliphist list| wc -l) -gt 0 ]",
+    "signal": 9
+   },
+
+    
+    "custom/zeit": {
+        "return-type": "json",
+        "interval": "once",
+        "format":"{icon}",
+        "format-icons": {
+            "tracking": "󰖷",
+            "stopped": "󰋣"
+        },
+        "exec": "/usr/share/sway/scripts/zeit.sh status",
+        "on-click": "/usr/share/sway/scripts/zeit.sh click; waybar-signal zeit",
+        "exec-if": "[ -x \"$(command -v zeit)\" ]",
+        "signal": 10
+    },
+
+    "custom/dnd": {
+        "interval": "once",
+        "return-type": "json",
+        "format":"{}{icon}",
+        "format-icons": {
+            "default": "󰚢",
+            "dnd": "󰚣"
+        },
+        "on-click": "/usr/share/sway/scripts/dnd.sh toggle; waybar-signal dnd",
+        "on-click-right": "/usr/share/sway/scripts/dnd.sh restore",
+        "exec": "/usr/share/sway/scripts/dnd.sh status",
+        "signal": 11
+    },
+
+    
+    "custom/valent": {
+        "format":"{icon}",
+        "tooltip": true,
+        "interval": 60,
+        "exec": "/usr/share/sway/scripts/valent.py",
+        "exec-if": "[ -x \"$(command -v valent)\" ]",
+        "return-type": "json",
+        "format-icons": {
+            "no-devices": "",
+            "dangerously-empty": "󰂃",
+            "no-signal": "󰞃",
+            "connected": "",
+            "disconnected": ""
+        },
+        "on-click": "valent",
+        "on-click-middle": "waybar-signal valent",
+        "signal": 13
+    },
+
+    "custom/idle_inhibitor": {
+        "interval": 60,
+        "return-type": "json",
+        "format":"{icon}",
+        "format-icons": {
+            "on": "󰒳",
+            "off": "󰒲"
+        },
+        "exec": "inhibit-idle",
+        "on-click": "inhibit-idle off; inhibit-idle interactive",
+        "on-click-middle": "inhibit-idle off",
+        "signal": 15
+    }
+}
