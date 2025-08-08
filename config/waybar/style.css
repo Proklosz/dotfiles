@@ -1,0 +1,426 @@
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
+
+/* import css definitions for current theme */
+
+/* -----------------------------------------------------------------------------
+ * Keyframes
+ * -------------------------------------------------------------------------- */
+
+@keyframes blink-warning {
+  70% {
+    color: @wm_icon_bg;
+  }
+
+  to {
+    color: @wm_icon_bg;
+    background-color: @warning_color;
+  }
+}
+
+@keyframes blink-critical {
+  70% {
+    color: @wm_icon_bg;
+  }
+
+  to {
+    color: @wm_icon_bg;
+    background-color: @error_color;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+/* Reset all styles */
+* {
+  border: none;
+  border-radius: 15px;
+  min-height: 0px;
+  margin: 0px;
+  padding: 0px;
+  font-family: "JetBrains Mono", "Roboto Mono", sans-serif;
+  font-size: 16px;
+  font-weight: bolder;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.popup,
+tooltip {
+  color: #d7d7d7;
+  margin: 20px;
+  background-color: rgba(10, 10, 10, 0.5);
+  border: 1px solid #808080;
+  padding: 10px;
+}
+/* The whole bar */
+window#waybar {
+  background-color: rgba(15, 15, 15, 0.8);
+
+  color: @wm_icon_bg;
+  font-size: 14px;
+  border-radius: 23px;
+  margin: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+/* Each module */
+#custom-pacman,
+#custom-menu,
+#custom-help,
+#custom-scratchpad,
+#custom-github,
+#custom-clipboard,
+#custom-zeit,
+#custom-dnd,
+#custom-valent,
+#custom-idle_inhibitor,
+#bluetooth,
+#battery,
+#clock,
+#cpu,
+#memory,
+#mode,
+#network,
+#pulseaudio,
+#custom-temperature,
+#backlight,
+#language,
+#custom-adaptive-light,
+#custom-sunset,
+#custom-playerctl,
+#custom-weather,
+#custom-terminal,
+#custom-gpu_usage,
+#custom-gpu_temp {
+  padding-left: 3px;
+  padding-right: 13px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 2px;
+  color: #aaaaaa;
+
+  background-color: rgba(200, 200, 200, 0.1);
+
+  transition: all 0.3s ease;
+}
+#custom-terminal {
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-bottom: 7px;
+  margin-bottom: 2px;
+}
+#tray {
+  padding: 1px 15px;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+#tray > * {
+  margin: 0px 15px;
+  margin-bottom: 2px;
+  padding: 15px;
+  color: #aaaaaa;
+}
+
+#tray > *:hover {
+  border-bottom: 1px solid white;
+  border-top: 1px solid transparent;
+  color: #ffffff;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+
+#tray > *:focus-within {
+  border-bottom: 1px solid white;
+  border-top: 1px solid transparent;
+  color: #ffffff;
+}
+
+#tray > *:not(:hover) {
+  animation: reset-hover 0.3s forwards;
+}
+
+@keyframes reset-hover {
+  from {
+    background-color: #303030;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  padding-top: 10px;
+  padding-bottom: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgba(15, 15, 15, 0);
+  border-radius: 8px;
+}
+
+#custom-terminal:hover {
+  padding-bottom: 6px;
+  border-bottom: 1px solid white;
+  border-top: 1px solid transparent;
+  padding-top: 2px;
+  background-color: rgba(125, 125, 125, 0.5);
+}
+#custom-gpu_usage:hover,
+#custom-gpu_temp:hover,
+#cpu:hover,
+#custom-temperature:hover,
+#network:hover,
+#bluetooth:hover,
+#custom-playerctl:hover,
+#pulseaudio:hover {
+  border-bottom: 1px solid white;
+  border-top: 1px solid transparent;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-color: rgba(125, 125, 125, 0.5);
+}
+#network,
+#custom-playerctl {
+  padding-right: 13px;
+  padding-left: 9px;
+}
+
+#clock,
+#backlight {
+  padding-right: 10px;
+  margin-left: 10px;
+}
+#clock {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-color: #d7d7d7;
+}
+#clock:hover {
+  background-color: rgba(15, 15, 15, 0.4);
+  color: #d7d7d7;
+}
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+#custom-scratchpad,
+#custom-menu,
+#workspaces button.active,
+#clock {
+  color: #000000;
+  background-color: #d7d7d7;
+}
+
+#custom-zeit.tracking {
+  background-color: @warning_color;
+}
+
+#battery {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#battery.warning {
+  color: @warning_color;
+}
+
+#battery.critical {
+  color: @error_color;
+}
+
+#battery.warning.discharging {
+  animation-name: blink-warning;
+  animation-duration: 3s;
+}
+
+#battery.critical.discharging {
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#clock {
+  font-weight: bolder;
+}
+
+#cpu.warning {
+  color: orange;
+  background-color: rgba(255, 255, 0, 0.4);
+}
+
+#cpu.critical {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+#custom-gpu_usage.warning {
+  color: orange;
+  border-right: none;
+  margin-right: 0px;
+  background-color: rgba(255, 255, 0, 0.4);
+}
+#custom-gpu_usage.critical {
+  color: red;
+  border-right: none;
+  margin-right: 0px;
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+#custom-menu {
+  padding-left: 8px;
+  padding-right: 4px;
+  color: #000000;
+  border-color: #d7d7d7;
+}
+#custom-menu:hover {
+  background-color: rgba(15, 15, 15, 0.4);
+  color: #d7d7d7;
+}
+
+#memory {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#memory.warning {
+  color: @warning_color;
+}
+
+#memory.critical {
+  color: @error_color;
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#mode {
+  background: @background_color;
+}
+
+#network.disconnected {
+  color: red;
+  background-color: @warning_color;
+}
+
+#pulseaudio.muted {
+  color: @warning_color;
+  border-color: @warning_color;
+}
+
+#custom-temperature.critical {
+  color: @error_color;
+}
+
+#workspaces {
+  background-color: rgba(200, 200, 200, 0.05);
+  border-radius: 15px;
+  border-bottom: 1px solid #7d7d7d;
+
+  padding: 2px 2px;
+  margin-top: -2px;
+  color: #d7d7d7;
+}
+
+#workspaces button {
+  /* To compensate for the top border and still have vertical centering */
+  padding: 0px 7px;
+  color: #d7d7d7;
+  border-radius: 15px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+  border-bottom: 1px solid white;
+  border-top: 1px solid transparent;
+  color: #ffffff;
+  background-color: rgba(125, 125, 125, 0.5);
+}
+
+#workspaces button.active {
+  color: #000000;
+  background-color: #d7d7d7;
+}
+
+#workspaces button.urgent {
+  border-color: @error_color;
+  color: @error_color;
+}
+
+#custom-pacman {
+  color: @warning_color;
+}
+
+#bluetooth.disabled {
+  color: @warning_color;
+}
+
+#custom-wf-recorder {
+  color: @error_color;
+  padding-right: 10px;
+}
+
+#custom-valent.dangerously-empty {
+  color: @warning_color;
+}
+
+#cpu {
+  border-right: none;
+  color: #aaaaaa;
+  margin-right: 0px;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+#custom-temperature {
+  color: #aaaaaa;
+  border-left: none;
+  margin-left: 0px;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+#custom-gpu_usage {
+  color: #aaaaaa;
+  border-right: none;
+  margin-right: 0px;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+
+#custom-gpu_temp {
+  color: #aaaaaa;
+  border-left: none;
+  margin-left: 0px;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+#custom-separator_2 {
+  font-weight: 300;
+  border-radius: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  background: linear-gradient(
+      63deg,
+      transparent 45%,
+      #474747 48%,
+      #474747 52%,
+      transparent 55%
+    ),
+    linear-gradient(
+      117deg,
+      transparent 45%,
+      #474747 48%,
+      #474747 52%,
+      transparent 55%
+    ),
+    radial-gradient(circle at 0px center, #101010 30%, transparent 40%),
+    radial-gradient(circle at 10px center, #101010 30%, transparent 40%);
+}
+#custom-separator {
+  background-color: rgba(0, 0, 0, 0);
+}

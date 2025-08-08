@@ -1,0 +1,42 @@
+{
+    "label" : "lock",
+    "action" : "/home/proklosz/personal/lock_screen.sh",
+    "text" : "Lock",
+    "keybind" : "l",
+    "circular" : false
+}
+{
+    "label" : "hibernate",
+    "action" : "systemctl hibernate",
+    "text" : "Hibernate",
+    "keybind" : "h",
+    "circular" : false
+}
+{
+    "label" : "logout",
+    "action" : "loginctl terminate-user $USER",
+    "text" : "Logout",
+    "keybind" : "e",
+    "circular" : false
+}
+{
+    "label" : "shutdown",
+    "action" : "shutdown -h now",
+    "text" : "Shutdown",
+    "keybind" : "s",
+    "circular" : false
+}
+{
+    "label" : "suspend",
+    "action" : "systemctl suspend",
+    "text" : "Suspend",
+    "keybind" : "u",
+    "circular" : false
+}
+{
+    "label" : "reboot",
+    "action" : "systemctl reboot",
+    "text" : "Reboot",
+    "keybind" : "r",
+    "circular" : false
+}
